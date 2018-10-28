@@ -1,4 +1,4 @@
-// baekjoon 11047
+// baekjoon 11047 yechan
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
