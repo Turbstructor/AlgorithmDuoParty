@@ -121,5 +121,3 @@ int main(){
     LL.erase(1); cout << LL << endl;
     LL.insert(1, 10); cout << LL << endl;
 }
-[출처] 리스트(List), 배열(Array), 연결 리스트(Linked List)|작성자 라이
-
