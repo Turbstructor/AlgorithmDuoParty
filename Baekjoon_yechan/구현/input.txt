@@ -1,8 +1,7 @@
-3 4
-ohhenrie
-charlie
-baesangwook
-obama
-baesangwook
-ohhenrie
-clinton
+6
+-1
+5
+4
+3
+2
+1
