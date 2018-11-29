@@ -10,7 +10,7 @@ public:
     T value;
     ListNode<T> *next; // 마지막 노드면 nullptr
  
-                       // 생성자
+    // 생성자
     ListNode<T>(): next(nullptr){}
     ListNode<T>(T value1, ListNode<T> *next1): value(value1), next(next1){}
 };
