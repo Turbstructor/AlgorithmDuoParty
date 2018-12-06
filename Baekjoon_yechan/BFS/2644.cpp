@@ -1,27 +1,37 @@
 // baekjoon 2644 yechan
 #include <cstdio>
 #include <queue>
+#include <vector>
 using namespace std;
-int n, start, finish, m, adj[101][101], dist[101];
+
+int n, s, e, m, dist[101];
+vector<int> adj[101];
 
 int main() {
-	scanf("%d %d %d %d", &n, &start, &finish, &m);
+	scanf("%d %d %d %d", &n, &s, &e, &m);
+
 	for (int i=0; i<m; i++) {
-		int x=0, y=0;
+		int x, y;
 		scanf("%d %d", &x, &y);
-		adj[x][y]=adj[y][x]=1;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
 	}
 
 	queue<int> q;
-	q.push(start);
+
+	q.push(s);
 	while (!q.empty()) {
-		int now = q.front(); q.pop();
-		for (int i=1; i <= n; i++) {
-			if (adj[now][i] && !dist[i]) {
-				dist[i] = dist[now] + 1;
-				q.push(i);
+		int curr = q.front(); q.pop();
+		for (int &next: adj[curr]) {
+			if (!dist[next]) {
+				dist[next] = dist[curr] + 1;
+				q.push(next);
 			}
 		}
 	}
-	printf("%d\n", (dist[finish] == 0)? -1 : dist[finish]);
+
+	if (!dist[e]) 	printf("-1\n");
+	else 			printf("%d\n", dist[e]);
+
+	return 0;
 }
