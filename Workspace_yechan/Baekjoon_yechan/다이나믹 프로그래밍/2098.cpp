@@ -8,20 +8,19 @@ using namespace std;
 int N, W[16][16], dp[16][1<<16];
 
 int ropeCycle(int here, int visited) {
-	int &ret = dp[here][visited];
-	if (ret != -1) return ret;
+	if (dp[here][visited] != -1) return dp[here][visited];
 
 	if (visited == (1<<N)-1) {
 		if (W[here][0] != 0) return W[here][0];
 		return MAX_INF;
 	}
 
-	ret = MAX_INF;
+	int ret = MAX_INF;
 	for (int i=0; i<N; i++) {
 		if (visited & (1<<i) || W[here][i] == 0) continue;
 		ret = min(ret, ropeCycle(i, visited | (1<<i) ) + W[here][i]);
 	}
-	return ret;
+	return dp[here][visited] = ret;
 }
 
 int main() {
