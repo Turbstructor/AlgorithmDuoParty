@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <queue>
+#include <climits>
 using namespace std;
 #define MAX_N 10001
 typedef pair<int, int> P;

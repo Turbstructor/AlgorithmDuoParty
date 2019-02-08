@@ -1,23 +1,24 @@
-// baekjoon 10984 yechan
 #include <cstdio>
 #include <algorithm>
+
 using namespace std;
 
-int T, N;
-float C, G, totalC, totalG;
-
 int main() {
-	scanf("%d", &T);
-	while (T--) {
-		scanf("%d", &N);
-		totalC = totalG = 0;
-		for (int i=0; i<N; i++) {
-			scanf("%f %f", &C, &G);
-			totalC += C;
-			totalG += G*C;
-		}
-		printf("%d %.1f\n", (int)totalC, totalG/totalC);
-	}
+	int t;
+	scanf("%d", &t);
 
-	return 0;
+	while (t--) {
+		int n;
+		scanf("%d", &n);
+		double sum1 = 0;
+		int sum2 = 0;
+		for (int i = 0; i < n; i++) {
+			int a;
+			double b;
+			scanf("%d %lf", &a, &b);
+			sum2 += a;
+			sum1 += b * a;
+		}
+		printf("%d %.1lf\n", sum2, sum1 / sum2);
+	}
 }
