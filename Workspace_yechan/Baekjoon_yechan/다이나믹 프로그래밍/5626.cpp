@@ -1,44 +1,42 @@
-// baekjoon 5626 yechan
+//BOJ5626 제단
 #include <cstdio>
-#include <cmath>
 #include <algorithm>
+#include <cstring>
 using namespace std;
-const int DIV_NUM=1000000007;
-const int MAX_N=10001;
-const int MAX_H=5001;
+#define MAX_N 10001
+#define MOD 1000000007
+typedef long long ll;
 
-int N, H, x, start, length, ret;
-int dp[MAX_N][MAX_H]; // [length][hight_diff]
+int N, arr[MAX_N], h;
+ll dp[MAX_N], prv[MAX_N];
 
 int main() {
-	dp[0][0]=1;
-	for (int i=1; i<MAX_N; i++) {
-		dp[i][0]+=dp[i-1][0];
-		dp[i][0]+=dp[i-1][1];
-		for (int j=1; j<MAX_H-1; j++) {
-			for (int d=-1; d<2; d++) {
-				dp[i][j]+=dp[i-1][d+j];
-				dp[i][j]%=DIV_NUM;
+	scanf("%d", &N);
+	for (int i = 0; i < N; i++)
+		scanf("%d", &arr[i]);
+	if (arr[0] > 0 || arr[N-1] > 0) 
+		return !printf("0\n");
+	//처음 input이 1이상일 수도 있음. 그럴 경우는 없으니 0.
+	prv[0] = (arr[0] <= 0) ? 1 : 0;
+	//prv가 이전 열, dp가 현재 열.
+    for (int i = 1; i < N; i++) {
+		memset(dp, 0, sizeof(dp));
+		if (arr[i] == -1) {
+			for (int j = 0; j < (N+1)/2; j++) {
+				if (j == 0) dp[j] = (prv[0] + prv[1]) % MOD;
+				else dp[j] = (prv[j - 1] + prv[j] + prv[j + 1]) % MOD;
 			}
 		}
-		dp[i][0]+=dp[i-1][MAX_H-1];
-		dp[i][0]+=dp[i-1][MAX_H];
+		else if (arr[i] == 0)
+			dp[0] = (prv[0] + prv[1]) % MOD;
+		else {
+			h = arr[i];
+			dp[h] = (prv[h - 1] + prv[h] + prv[h + 1]) % MOD;
+		}
+        //넘어가기 전에 바꿔주면서 prv가 update
+		swap(prv, dp);
 	}
-	scanf("%d", &N);
-	scanf("%d", &start);
-	if (start != -1 && start != 0) return !printf("0\n");
-	ret=1; start=0;
-	length++;
-	for (int i=1; i<N-1; i++) {
-		scanf("%d", &x);
-		if (x == -1) { length++; continue; }
-		ret=(ret*dp[start+length-1][x]*1LL)%DIV_NUM;
-		start=x, length=1;
-	}
-	scanf("%d", &x);
-	if (x != -1 && x != 0) return !printf("0\n");
-	// printf("len: %d, diff: %d\n", length, abs(start));
-	ret=(ret*dp[start+length-1][0]*1LL)%DIV_NUM;
-	printf("%d\n", ret);
+    //prv[0] = dp[0] + dp[1]. 여기서 dp는 바로 앞열의 경우의 수가 저장되어 있음.
+	printf("%lld", prv[0]);
 	return 0;
 }
