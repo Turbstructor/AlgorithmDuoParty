@@ -1,4 +1,4 @@
-0// baekjoon 2491 yechan
+// baekjoon 2491 yechan
 #include <cstdio>
 #include <algorithm>
 using namespace std;
